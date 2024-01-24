@@ -1,0 +1,29 @@
+name: Deploy Node.js App    
+
+on:
+  push:
+    branches:
+      - prod
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      
+      - name: Install dependencies
+        run: npm install /root/actions-runner/_work/GitHub-/GitHub-/
+
+
+      - name: Build Node.js app
+        run: npm run build
+
+      - name: start react-app
+        run: npm start
+
+     
+        

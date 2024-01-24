@@ -1,0 +1,25 @@
+name: Testing in staging environment
+on:
+  push:
+    branches:
+      - stage
+  workflow_dispatch:
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+     
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Building
+        run: npm run build
+      
+      
+        
+        
