@@ -12,15 +12,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       
       - name: Install dependencies
-        run: npm install /root/actions-runner/_work/GitHub-/GitHub-/
+        run: npm install 
 
-
-      - name: Build Node.js app
-        run: npm run build
 
       - name: start react-app
         run: npm start
