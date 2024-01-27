@@ -20,7 +20,7 @@ jobs:
         run: npm install
 
       - name: Building
-        run: echo "building....."
+        run: npm run build
 
       - name: Slack Notification Demo
         uses: bryannice/gitactions-slack-notification@2.0.0
@@ -28,9 +28,10 @@ jobs:
           SLACK_INCOMING_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_MESSAGE: 'Demo''ing the Slack Notification'
           SLACK_CHANNEL: '#github_actions'
-          GITHUB_EVENT_NAME: ${{job.status}}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
           SLACK_TITLE: 'Slack Notification Demo'
-        if: always()
+        if: success()
+
 
           
       
