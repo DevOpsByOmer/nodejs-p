@@ -30,7 +30,8 @@ jobs:
           SLACK_CHANNEL: '#github_actions'
           GITHUB_EVENT_NAME: ${{job.status}}
           SLACK_TITLE: 'Slack Notification Demo'
-        if: always ()
+        if: always()
+
           
       
         
