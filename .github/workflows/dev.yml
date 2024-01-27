@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
+          
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,7 +22,15 @@ jobs:
 
       - name: Building
         run: npm run build
-      
+
+      - name: Slack Notifications
+        uses: act10n/slack@v1
+        with:
+          status: ${{job.status}}
+          steps:  ${{toJson(steps)}}
+          channel: '#github_actions'
+        if: always ()
+          
       
         
         
