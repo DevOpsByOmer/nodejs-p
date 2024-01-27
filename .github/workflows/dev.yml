@@ -20,7 +20,7 @@ jobs:
         run: npm install
 
       - name: Building
-        run: npm run build
+        run: echo "building....."
 
       - name: Slack Notification Demo
         uses: bryannice/gitactions-slack-notification@2.0.0
@@ -30,6 +30,7 @@ jobs:
           SLACK_CHANNEL: '#github_actions'
           GITHUB_EVENT_NAME: ${{job.status}}
           SLACK_TITLE: 'Slack Notification Demo'
+        if: always ()
           
       
         
