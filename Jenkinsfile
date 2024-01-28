@@ -76,7 +76,7 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying to Nginx...'
-                    sh 'rsync -a nodejs-p/build/ /var/www/html/'
+                    sh 'rsync -a nodejs-p/src/ /var/www/html/'
                 }
             }
     
@@ -87,7 +87,7 @@ pipeline {
             slackSend channel: '#jenkinscicd',
                 color: COLOR_MAP[currentBuild.currentResult],
                 message: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n",
-                botUser: true,
+                botUser: false,
                 tokenCredentialId: 'slacktoken',
                 notifyCommitters: false
         }
