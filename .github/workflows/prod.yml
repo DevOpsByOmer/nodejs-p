@@ -21,6 +21,18 @@ jobs:
 
       - name: start react-app
         run: npm start
+      - name: Send a mail on failure
+        if: failure()
+        uses: wadeww/send-email-action@master
+        with:
+            server_address: smtp.gmail.com
+            port: 465
+            username: ${{secrets.MAIL_USERNAME}}
+            password: ${{secrets.MAIL_PASSWORD}}
+            subject: Workflow finished
+            body: Job  ${{job.status}}
+            to: dvop.omer@gmail.com
+            from: Github-action
 
      
         
