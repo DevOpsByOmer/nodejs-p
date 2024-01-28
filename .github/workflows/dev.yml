@@ -8,15 +8,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+           
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-     
-
+      - uses: actions/setup-node@v4
+        with:
+           node-version: 14
       - name: Install dependencies
         run: npm install
 
+<<<<<<< HEAD
       - name: Building
         run: npm run build
       - name: Send a mail on failure
@@ -32,6 +35,21 @@ jobs:
             to: dvop.omer@gmail.com
             from: Github-action
       
+=======
+
+      - name: Slack Notification Demo
+        uses: bryannice/gitactions-slack-notification@2.0.0
+        env:
+          SLACK_INCOMING_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_MESSAGE: 'Demo''ing the Slack Notification'
+          SLACK_CHANNEL: '#github_actions'
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          SLACK_TITLE: 'Slack Notification Demo'
+        if: success()
+
+
+          
+>>>>>>> c4d941f47d7d14217d729f6f79f659f2007925e0
       
         
         
