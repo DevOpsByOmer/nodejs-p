@@ -44,15 +44,15 @@ pipeline {
             }
         }
 
-
         stage('Install Dependencies') {
             steps {
                 script {
-                    sh 'cd GitHub- && npm install'
+                    sh 'cd nodejs-p && npm install'
                 }
             }
         }
-         stage('Sonar Code Analysis') {
+
+        stage('Sonar Code Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube') {
                     sh '''/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar/bin/sonar-scanner -X -Dsonar.projectKey=nodeapp \
@@ -62,15 +62,16 @@ pipeline {
                 }
             }
         }
-    
-         stage('Stash npm Dependencies') {
+
+        stage('Stash npm Dependencies') {
             steps {
                 script {
                     echo 'Stashing npm dependencies for future builds...'
-                    stash name: 'GitHubDir', includes: '/var/lib/jenkins/workspace/Nodejs_project/nodejs-p/node_module/**', allowEmpty: true
+                    stash name: 'GitHubDir', includes: 'nodejs-p/node_modules/**', allowEmpty: true
                 }
             }
         }
+
         stage('Deploy to Nginx') {
             steps {
                 script {
@@ -78,9 +79,9 @@ pipeline {
                     sh 'rsync -a nodejs-p/build/ /var/www/html/'
                 }
             }
-        }
-       
-     post {
+    
+
+    post {
         always {
             echo 'Slack Notification.'
             slackSend channel: '#jenkinscicd',
@@ -92,6 +93,5 @@ pipeline {
         }
     }
     }
+    }
 }
-
-
