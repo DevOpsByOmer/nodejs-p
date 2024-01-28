@@ -40,14 +40,34 @@ pipeline {
 
         stage('Fetching the Code') {
             steps {
-                sh "git clone https://github.com/DevOpsByOmer/nodejs-p.git"
+                sh "git clone -b main https://github.com/DevOpsByOmer/nodejs-p.git"
             }
         }
+
 
         stage('Install Dependencies') {
             steps {
                 script {
                     sh 'cd GitHub- && npm install'
+                }
+            }
+        }
+         stage('Sonar Code Analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh '''/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar/bin/sonar-scanner -X -Dsonar.projectKey=nodeapp \
+                        -Dsonar.projectName=nodeapp \
+                        -Dsonar.projectVersion=1.0 \
+                        -Dsonar.sources=/var/lib/jenkins/workspace/Nodejs_project/nodejs-p/src/'''
+                }
+            }
+        }
+    
+         stage('Stash npm Dependencies') {
+            steps {
+                script {
+                    echo 'Stashing npm dependencies for future builds...'
+                    stash name: 'GitHubDir', includes: '/var/lib/jenkins/workspace/Nodejs_project/nodejs-p/node_module/**', allowEmpty: true
                 }
             }
         }
@@ -59,30 +79,7 @@ pipeline {
                 }
             }
         }
-    }
-
-
        
-        stage('Stash npm Dependencies') {
-            steps {
-                script {
-                    echo 'Stashing npm dependencies for future builds...'
-                    stash name: 'GitHubDir', includes: '/var/lib/jenkins/workspace/Nodejs_project/nodejs-p/node_module/**', allowEmpty: true
-                }
-            }
-        }
-
-        stage('Sonar Code Analysis') {
-            steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh '''/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar/bin/sonar-scanner -X -Dsonar.projectKey=nodeapp \
-                        -Dsonar.projectName=nodeapp \
-                        -Dsonar.projectVersion=1.0 \
-                        -Dsonar.sources=/var/lib/jenkins/workspace/Nodejs_project/nodejs-p/src/'''
-                }
-            }
-        }
-    }
      post {
         always {
             echo 'Slack Notification.'
@@ -94,5 +91,7 @@ pipeline {
                 notifyCommitters: false
         }
     }
+    }
+}
 
 
