@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-<<<<<<< HEAD
+
       - name: Building
         run: npm run build
       - name: Send a mail on failure
@@ -34,8 +34,6 @@ jobs:
             body: Job  ${{job.status}}
             to: dvop.omer@gmail.com
             from: Github-action
-      
-=======
 
       - name: Slack Notification Demo
         uses: bryannice/gitactions-slack-notification@2.0.0
@@ -49,7 +47,4 @@ jobs:
 
 
           
->>>>>>> c4d941f47d7d14217d729f6f79f659f2007925e0
-      
-        
-        
+
