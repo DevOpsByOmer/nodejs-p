@@ -28,7 +28,7 @@ jobs:
           SLACK_CHANNEL: '#github_actions'
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           SLACK_TITLE: 'Slack Notification'
-        if: failure()
+        if: success()
 
 
           
