@@ -22,19 +22,8 @@ jobs:
 
       - name: Building
         run: npm run build
-      - name: Send a mail on failure
-        if: failure()
-        uses: wadeww/send-email-action@master
-        with:
-            server_address: smtp.gmail.com
-            port: 465
-            username: ${{secrets.MAIL_USERNAME}}
-            password: ${{secrets.MAIL_PASSWORD}}
-            subject: Workflow finished
-            body: Job  ${{job.status}}
-            to: dvop.omer@gmail.com
-            from: Github-action
 
+     
       - name: Slack Notification Demo
         uses: bryannice/gitactions-slack-notification@2.0.0
         env:
