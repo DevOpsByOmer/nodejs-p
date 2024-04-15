@@ -1,4 +1,5 @@
 name: Lint Code
+
 on:
   push:
     branches:
@@ -19,8 +20,21 @@ jobs:
       with:
         node-version: '14'  # Specify your Node.js version
 
+    - name: Cache Node.js dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
     - name: Install dependencies
       run: npm install
+
+    # Set the NODE_ENV variable for compatibility
+    - name: Set NODE_ENV environment variable
+      run: export NODE_ENV=development
+      shell: bash
 
     - name: Run ESLint
       run: npx eslint .
