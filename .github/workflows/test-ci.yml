@@ -1,0 +1,24 @@
+name: new CI Pipeline for practice
+
+on:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        users: actions/checkout@v3
+
+
+      - name: Setup nodejs
+        users: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: install dependncies
+        run: npm install
+
+      - name: Run test
+        run: npm test
+
