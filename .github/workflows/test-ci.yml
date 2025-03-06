@@ -1,6 +1,6 @@
 name: new CI Pipeline for practice
 
-on:
+on: [push, pull_request]
 
 jobs:
   build:
