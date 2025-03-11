@@ -32,7 +32,20 @@ jobs:
         SLACK_CHANNEL: '#github_actions'
         GITHUB_EVENT_NAME: ${{ github.event_name }}
         SLACK_TITLE: 'Slack Notification'
-       if: success()  # Inline comment for condition
+        # Inline comment for condition
+    
+     - name: E-Mail Notification
+       uses: wadeww/send-email-action@master
+       with:
+            server_address: smtp.gmail.com
+            port: 465
+            username: ${{secrets.MAIL_USERNAME}}
+            password: ${{secrets.MAIL_PASSWORD}}
+            subject: Workflow finished
+            body: Job  ${{job.status}}
+            to: dvop.omer@gmail.com
+            from: Github-action
+       
         
 
         
