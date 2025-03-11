@@ -28,7 +28,7 @@ jobs:
        uses: bryannice/gitactions-slack-notification@2.0.0
        env:
         SLACK_INCOMING_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-        SLACK_MESSAGE: 'failed the Slack Notification'  
+        SLACK_MESSAGE: 'we have send the github action noti success msg'  
         SLACK_CHANNEL: '#github_actions'
         GITHUB_EVENT_NAME: ${{ github.event_name }}
         SLACK_TITLE: 'Slack Notification'
