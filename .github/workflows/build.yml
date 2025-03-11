@@ -1,0 +1,26 @@
+name: creating build for node app
+
+on: 
+  push:
+    branches: 
+    - practice-lab 
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+
+    steps:
+     - name: fetching the repo
+       uses: actions/checkout@v4
+
+     - name: build node ap
+       uses: actions/setup-node@v4
+       with:
+        node-version: 14
+
+     - name: Install Dependencies
+       run: npm install
+        
