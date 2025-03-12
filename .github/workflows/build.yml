@@ -1,51 +1,52 @@
-name: creating build for node app
+name: Creating Build for Node App
 
 on: 
   push:
     branches: 
-    - practice-lab 
+      - practice-lab 
   workflow_dispatch:
-
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-
     steps:
-     - name: fetching the repo
-       uses: actions/checkout@v4
+      - name: Fetching the repo
+        uses: actions/checkout@v4
 
-     - name: build node ap
-       uses: actions/setup-node@v4
-       with:
-        node-version: 14
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 14
 
-     - name: Install Dependencies
-       run: npm install
+      - name: Cache npm dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm  # Cache path
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-     - name: Slack Notification
-       uses: bryannice/gitactions-slack-notification@2.0.0
-       env:
-        SLACK_INCOMING_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-        SLACK_MESSAGE: 'we have send the github action noti success msg'  
-        SLACK_CHANNEL: '#github_actions'
-        GITHUB_EVENT_NAME: ${{ github.event_name }}
-        SLACK_TITLE: 'Slack Notification'
-        # Inline comment for condition
-    
-     - name: E-Mail Notification
-       uses: wadeww/send-email-action@master
-       with:
-            server_address: smtp.gmail.com
-            port: 465
-            username: ${{secrets.MAIL_USERNAME}}
-            password: ${{secrets.MAIL_PASSWORD}}
-            subject: Workflow finished
-            body: Job  ${{job.status}}
-            to: dvop.omer@gmail.com
-            from: Github-action
-       
-        
+      - name: Install Dependencies
+        run: npm install
 
-        
+      - name: Slack Notification
+        uses: bryannice/gitactions-slack-notification@2.0.0
+        env:
+          SLACK_INCOMING_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_MESSAGE: 'We have sent the GitHub Action notification success message'  
+          SLACK_CHANNEL: '#github_actions'
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          SLACK_TITLE: 'Slack Notification'
+
+      - name: E-Mail Notification
+        uses: wadeww/send-email-action@master
+        with:
+          server_address: smtp.gmail.com
+          port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: Workflow finished
+          body: Job ${{ job.status }}
+          to: dvop.omer@gmail.com 
+          from: Github-action
