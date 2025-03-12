@@ -39,7 +39,7 @@ jobs:
         with:
          args: >
           -Dsonar.projectKey=DevOpsByOmer_nodejs-p
-          -Dsonar.organization=DevOpsByOmer
+          -Dsonar.organization=OmerMohammed
           -Dsonar.host.url=https://sonarcloud.io
       
 
