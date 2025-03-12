@@ -36,7 +36,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.G_TOKEN }}  # Needed for PR analysis
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    
+        with:
+         args: >
+          -Dsonar.projectKey=OmerMohammed_nodejs-p
+          -Dsonar.organization=OmerMohammed
+          -Dsonar.host.url=https://sonarcloud.io
       
 
       - name: Slack Notification
