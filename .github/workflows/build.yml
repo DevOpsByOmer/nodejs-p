@@ -32,12 +32,10 @@ jobs:
 
       
       - name: Run SonarCloud Scan
-        run: |
-         sonar-scanner \
-          -Dsonar.projectKey=your_project_key \
-          -Dsonar.organization=your_org \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.G_TOKEN }}  # Needed for PR analysis
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
       
 
