@@ -30,6 +30,15 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: COde SCANNING
+        run: |
+          mvn clean verify sonar:sonar \
+            -Dsonar.projectKey=your_project_key \
+            -Dsonar.organization=your_org \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      
+
       - name: Slack Notification
         uses: bryannice/gitactions-slack-notification@2.0.0
         env:
@@ -50,3 +59,7 @@ jobs:
           body: Job ${{ job.status }}
           to: dvop.omer@gmail.com 
           from: Github-action
+    
+      
+        
+
