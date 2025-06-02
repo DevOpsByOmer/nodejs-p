@@ -2,7 +2,7 @@ name: Testing in dev environment
 on:
   workflow_call:
    secrets:
-      SLACK_WEBHOOK_URL:
+      SLACK_WEBHOOK:
         required: true
   push:
     branches:
