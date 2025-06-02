@@ -1,9 +1,11 @@
 name: Testing in dev environment
 on:
+  workflow_call:
   push:
     branches:
       - dev
   workflow_dispatch:
+  
       
 jobs:
   build:
